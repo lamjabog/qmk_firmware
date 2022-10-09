@@ -27,12 +27,14 @@
 #define JC_CTRS RCTL_T(KC_SLSH)
 #define JC_SHSP SFT_T(KC_SPC)
 #define JC_ESCC RCTL_T(KC_ESC)
+#define DF_GAME TG(_GAME)
 
 enum preonic_layers {
   _MAIN,
   _NUMBER,
   _MOUSE,
   _CURSOR,
+  _GAME
 };
 
 enum preonic_keycodes {
@@ -62,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
   JC_L1LF, MO_CURS, KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    MO_MOUS, JC_L2RG,
   KC_LSPO, JC_CTRZ, JC_ALTX, KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, JC_ALDT, JC_CTRS, KC_RSPC,
-  KC_LGUI, _______, _______, _______, JC_SHSP, KC_BSPC, JC_ESCC, KC_ENT,  _______, _______, _______, KC_RGUI
+  KC_LGUI, _______, _______, _______, JC_SHSP, KC_BSPC, JC_ESCC, KC_ENT,  _______, DF_GAME, _______, KC_RGUI
 ),
 
 [_NUMBER] = LAYOUT_preonic_grid( // TODO: mouse mode
@@ -86,6 +88,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+[_GAME] = LAYOUT_preonic_grid( // TODO: num mode
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
+  KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
+  KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  KC_LCTL, KC_LALT, KC_LGUI, _______, KC_BSPC, KC_SPC,  KC_ESC,  KC_ENT,  _______, DF_GAME, KC_RGUI, KC_RCTL
 ),
 
 };
