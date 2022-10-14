@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_CURSOR] = LAYOUT_preonic_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______,  _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -104,8 +104,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_preonic_grid(
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, EEP_RST, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
+  KC_NO,   KC_NO,   MU_MOD,  AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, KC_NO,   KC_NO,
+  KC_NO,   KC_NO,   KC_NO,   MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, KC_NO,   KC_NO,   KC_NO,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -113,17 +113,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-        case ADJUST:
-          if (record->event.pressed) {
-            layer_on(_ADJUST);
-          } else {
-            layer_off(_ADJUST);
-          }
-          return false;
-          break;
+    case ADJUST:
+      if (record->event.pressed) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
       }
+      return false;
+      break;
+    }
     return true;
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+    case _GAME:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}
 
 bool music_mask_user(uint16_t keycode) {
   switch (keycode) {
